@@ -1,0 +1,161 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <!-- daterange picker -->
+    <link rel="stylesheet" href="{{ asset('/AdminLTE/bootstrap-daterangepicker/daterangepicker.css') }}">
+{% endblock %}
+
+{% block body %}
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Invoices List</h3>
+
+                    <div class="form-inline pull-right">
+                        <form method="post">
+                            <label for="reservation">Date range:</label>
+                            <i class="fa fa-calendar"></i>
+                            <input type="text" class="form-control" id="reservation">
+                            <button type="submit" formmethod="post"> Filtrar </button>
+                        </form>
+                    </div>
+                    <!-- /.input group -->
+
+                    {#<span class="pull-right">
+
+                        {{ form_start(form, {'method': 'POST', 'attr': {'class': 'form-inline', 'novalidate': 'novalidate'}}) }}
+                            <button type="submit" formmethod="post"> Filtrar </button>
+                            {{ form_widget(form.desde) }}
+                            {{ form_errors(form.desde) }}
+                            {{ form_widget(form.hasta) }}
+                            {{ form_errors(form.hasta) }}
+                            <i class="fa fa-calendar"></i>
+                        {{ form_end(form) }}
+
+                    </span>#}
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <table id="example2" class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th>Invoiced at</th>
+                            <th>Number</th>
+                            <th>Details</th>
+                            <th>Received by</th>
+                            <th>Payed at</th>
+                            <th>Movements</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for invoice in invoices %}
+                            <tr>
+                                <td>{{ invoice.invoicedAt|date('Y-m-d') }}</td>
+                                <td>{{ invoice.number }}</td>
+                                <td>{{ invoice.details }}</td>
+                                <td>{{ invoice.receivedBy }}</td>
+                                <td>{{ invoice.payedAt|date('Y-m-d') }}</td>
+                                <td>{% for movement in invoice.movements %}
+                                        {{ movement.title }},
+                                    {% endfor %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                        {#<tfoot>
+                        <tr>
+                            <th>Rendering engine</th>
+                            <th>Browser</th>
+                            <th>Platform(s)</th>
+                            <th>Engine version</th>
+                            <th>CSS grade</th>
+                        </tr>
+                        </tfoot>#}
+                    </table>
+                </div>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    <!-- date-range-picker -->
+    <script src="{{ asset('/AdminLTE/moment/min/moment.min.js') }}"></script>
+    <script src="{{ asset('/AdminLTE/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
+
+    <script>
+        $(function () {
+            /*
+            //Initialize Select2 Elements
+            $('.select2').select2()
+
+            //Datemask dd/mm/yyyy
+            $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+            //Datemask2 mm/dd/yyyy
+            $('#datemask2').inputmask('mm/dd/yyyy', { 'placeholder': 'mm/dd/yyyy' })
+            //Money Euro
+            $('[data-mask]').inputmask()
+            */
+
+            //Date range picker
+            $('#reservation').daterangepicker()
+            /*//Date range picker with time picker
+            $('#reservationtime').daterangepicker({ timePicker: true, timePickerIncrement: 30, locale: { format: 'MM/DD/YYYY hh:mm A' }})
+            //Date range as a button
+            $('#daterange-btn').daterangepicker(
+                {
+                    ranges   : {
+                        'Today'       : [moment(), moment()],
+                        'Yesterday'   : [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                        'Last 7 Days' : [moment().subtract(6, 'days'), moment()],
+                        'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                        'This Month'  : [moment().startOf('month'), moment().endOf('month')],
+                        'Last Month'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                    },
+                    startDate: moment().subtract(29, 'days'),
+                    endDate  : moment()
+                },
+                function (start, end) {
+                    $('#daterange-btn span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
+                }
+            )*/
+
+            //Date picker
+            $('#datepicker').datepicker({
+                autoclose: true
+            })
+
+            /*//iCheck for checkbox and radio inputs
+            $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+                checkboxClass: 'icheckbox_minimal-blue',
+                radioClass   : 'iradio_minimal-blue'
+            })
+            //Red color scheme for iCheck
+            $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
+                checkboxClass: 'icheckbox_minimal-red',
+                radioClass   : 'iradio_minimal-red'
+            })
+            //Flat red color scheme for iCheck
+            $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+                checkboxClass: 'icheckbox_flat-green',
+                radioClass   : 'iradio_flat-green'
+            })
+
+            //Colorpicker
+            $('.my-colorpicker1').colorpicker()
+            //color picker with addon
+            $('.my-colorpicker2').colorpicker()
+
+            //Timepicker
+            $('.timepicker').timepicker({
+                showInputs: false
+            })*/
+        })
+    </script>
+{% endblock %}

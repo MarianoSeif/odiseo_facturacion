@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h2>New movement</h2>
+
+    <div class="content">
+        <div class="col-xs-12">
+        {{ form_start(movementForm, {'attr': {'novalidate': 'novalidate'}}) }}
+            {{ form_widget(movementForm) }}
+            <button class="btn btn-primary btn-lg" type="submit" formmethod="post"><i class="fa fa-save"></i> Create</button>
+        {{ form_end(movementForm) }}
+        </div>
+    </div>
+{% endblock %}

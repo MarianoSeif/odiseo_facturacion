@@ -1,3 +1,14 @@
 #index:
-#    path: /
-#    controller: App\Controller\DefaultController::index
+#   path: /
+#   controller: App\Controller\DashboardController::index
+#
+#movements:
+#   path: /movements
+#   controller: App\Controller\MovementController::indexAction()
+#
+#   path: /movements/new.html.twig
+#   controller: App\Controler\MovementController::createAction()
+#
+#invoices:
+#   path: /invoices
+#   controller: App\Controller\InvoiceController::indexAction()
