@@ -46,8 +46,8 @@ class MovementController extends AbstractController
         $form = $this->createForm(MovementType::class);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()){
-            //dd($form->getData());
             $movement = $form->getData();
+            $movement->setDate($form['formdate']->getData());
             $em->persist($movement);
             $em->flush();
             $this->addFlash('success', 'Movement Created!');
@@ -67,8 +67,8 @@ class MovementController extends AbstractController
         $form = $this->createForm(MovementType::class, $movement);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()){
-            //dd($form->getData());
             $movement = $form->getData();
+            $movement->setDate($form['formdate']->getData());
             $em->persist($movement);
             $em->flush();
             $this->addFlash('success', 'Movement Edited!');
@@ -77,6 +77,7 @@ class MovementController extends AbstractController
 
         return $this->render('movement/edit.html.twig', [
             'movementForm' => $form->createView(),
+            'date' => $movement->getStringDate(),
         ]);
     }
 
