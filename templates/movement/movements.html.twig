@@ -6,8 +6,8 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="box">
-                <span class="box-header">
-                    <span class="row">
+                <div class="box-header">
+                    <div class="row">
                         <div class="column col-xs-2">
                             <h3 class="box-title">Movements List</h3>
                         </div>
@@ -29,24 +29,8 @@
                             </span>
                         </div>
                     </div>
-
-                    {#<h3 class="box-title">Movements List</h3>
-                    <div>
-                        <a href="{{ path('movements_new') }}" class="btn btn-primary"><i class="fa fa-plus-circle"></i> New</a>
-                    </div>
-                    <span class="pull-right">
-
-                        {{ form_start(form, {'method': 'POST', 'attr': {'class': 'form-inline', 'novalidate': 'novalidate'}}) }}
-                            <button type="submit" formmethod="post"> Filtrar </button>
-                            {{ form_widget(form.desde) }}
-                        {{ form_errors(form.desde) }}
-                        {{ form_widget(form.hasta) }}
-                        {{ form_errors(form.hasta) }}
-                            <i class="fa fa-calendar"></i>
-                        {{ form_end(form) }}
-
-                    </span>#}
                 </div>
+
                 <!-- /.box-header -->
                 <div class="box-body">
                     <table id="example2" class="table table-bordered table-hover">
