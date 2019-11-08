@@ -30,12 +30,16 @@ class InvoiceController extends AbstractController
             return $this->render('invoice/invoices.html.twig', [
                 'invoices' => $invoices,
                 'form' => $form->createView(),
+                'datefilter' => $datefilter,
             ]);
         }
+
+        $datefilter = "";
 
         return $this->render('invoice/invoices.html.twig', [
             'invoices' => $invoices,
             'form' => $form->createView(),
+            'datefilter' => $datefilter,
         ]);
     }
 
@@ -58,6 +62,39 @@ class InvoiceController extends AbstractController
         return $this->render('invoice/new.html.twig', [
             'invoiceForm' => $form->createView(),
         ]);
+    }
+
+    /**
+     * @Route("/invoices/{id}/edit", name="invoices_edit")
+     */
+    public function updateAction(Invoice $invoice, EntityManagerInterface $em, Request $request)
+    {
+        $form = $this->createForm(InvoiceType::class, $invoice);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()){
+            $invoice = $form->getData();
+            $invoice->setInvoicedAt($form['formdate']->getData());
+            $em->persist($invoice);
+            $em->flush();
+            $this->addFlash('success', 'Invoice Updated!');
+            return $this->redirectToRoute('invoices');
+        }
+
+        return $this->render('invoice/edit.html.twig', [
+            'invoiceForm' => $form->createView(),
+            'invoicedAt' => $invoice->getStringInvoicedAt(),
+        ]);
+    }
+
+    /**
+     * @Route("/invoices/{id}/remove", name="invoices_remove")
+     */
+    public function remove(Invoice $invoice, EntityManagerInterface $em)
+    {
+        $em->remove($invoice);
+        $em->flush();
+
+        return $this->redirectToRoute('invoices');
     }
 
 }

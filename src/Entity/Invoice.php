@@ -154,4 +154,9 @@ class Invoice
     public function __toString(){
         return $this->details;
     }
+
+    public function getStringInvoicedAt()
+    {
+        return $this->getInvoicedAt()->format('Y-m-d');
+    }
 }

@@ -19,7 +19,7 @@ class InvoiceType extends AbstractType
     {
         $builder
             /* campo con un nombre distinto a la property y 'mapped'=>false para evitar
-            un error (invalid argument exception) y hacer funciolnar la validacion.
+            un error (invalid argument exception) y hacer funcionar la validacion.
             Ver asignacion en el controlador
             */
             ->add('formdate', DateType::class, [

@@ -33,7 +33,7 @@
 
                 <!-- /.box-header -->
                 <div class="box-body">
-                    <table id="example2" class="table table-bordered table-hover">
+                    <table id="example2" class="table table-bordered table-hover js-invoice-table">
                         <thead>
                             <tr>
                                 <th>Date</th>
@@ -57,25 +57,40 @@
                                             {{ invoice.number }},
                                         {% endfor %}
                                     </td>
-                                    <td align="center"><a href="{{ path('movements_edit', {id: movement.id}) }}"><i class="fa fa-pencil"></i></a></td>
                                     <td align="center">
-                                        <a href="{{ path('movements_remove', {id: movement.id}) }}" onclick="return confirm('are u sure?')"><i class="fa fa-trash"></i></a>
+                                        <a href="{{ path('movements_edit', {id: movement.id}) }}">
+                                            <i class="fa fa-pencil"></i>
+                                        </a>
+                                    </td>
+                                    <td align="center" class="js-remove-invoice">
+                                        <a href="{{ path('movements_remove', {id: movement.id}) }}" onclick="return confirm('are u sure?')">
+                                            <i class="fa fa-trash"></i>
+                                        </a>
                                     </td>
                                 </tr>
                             {% endfor %}
                         </tbody>
-                        {#<tfoot>
-                            <tr>
-                                <th>Rendering engine</th>
-                                <th>Browser</th>
-                                <th>Platform(s)</th>
-                                <th>Engine version</th>
-                                <th>CSS grade</th>
-                            </tr>
-                        </tfoot>#}
                     </table>
                 </div>
                 <!-- /.box-body -->
             </div>
             <!-- /.box -->
+{% endblock %}
+            
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function() {
+            console.log('js en accion');
+            $('.js-invoice-table').find('.js-remove-invoice').on('click', function(e) {
+                e.preventDefault();
+                console.log('borrando...');
+                $(this).addClass('text-danger');
+                $(this).find('fa')
+                    .removeClass('fa-trash')
+                    .addClass('fa-spinner')
+                    .addClass('fa-spin');
+            })
+        })
+    </script>
 {% endblock %}
